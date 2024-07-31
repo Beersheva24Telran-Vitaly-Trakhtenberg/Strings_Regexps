@@ -97,4 +97,64 @@ public class StringsTest
         exp = new ArithmeticJavaExpression(testInvalidString8);
         assertFalse(exp.test());
     }
+
+    @Test
+    void isArithmeticExpressionRegexpTest()
+    {
+        String testValidString1 = "(var1 + 25) * (var2 - 12)";
+        String testValidString2 = "(var1 + 25) * ((var2 - 12) + var3)";
+        String testValidString3 = "(5)";
+        String testValidString4 = "(oper1)";
+        String testValidString5 = "var1 + 25 * var2 - 12";
+
+        String testInvalidString1 = "(var1 + 25) * ((var2 - 12) + var3";
+        String testInvalidString2 = "void + (var1 + 25) * (var2 - 12)";
+        String testInvalidString3 = "()";
+        String testInvalidString4 = "++";
+        String testInvalidString5 = "s++";
+        String testInvalidString6 = "++k";
+        String testInvalidString7 = "assert";
+        String testInvalidString8 = "(+)";
+
+        /** Valid values **/
+        ArithmeticJavaExpressionRegexp exp = new ArithmeticJavaExpressionRegexp(testValidString1);
+        assertTrue(exp.test());
+
+        exp = new ArithmeticJavaExpressionRegexp(testValidString2);
+        assertTrue(exp.test());
+
+        exp = new ArithmeticJavaExpressionRegexp(testValidString3);
+        assertTrue(exp.test());
+
+        exp = new ArithmeticJavaExpressionRegexp(testValidString4);
+        assertTrue(exp.test());
+
+        exp = new ArithmeticJavaExpressionRegexp(testValidString5);
+        assertTrue(exp.test());
+
+        /** Invalid values **/
+        exp = new ArithmeticJavaExpressionRegexp(testInvalidString1);
+        assertFalse(exp.test());
+
+        exp = new ArithmeticJavaExpressionRegexp(testInvalidString2);
+        assertFalse(exp.test());
+
+        exp = new ArithmeticJavaExpressionRegexp(testInvalidString3);
+        assertFalse(exp.test());
+
+        exp = new ArithmeticJavaExpressionRegexp(testInvalidString4);
+        assertFalse(exp.test());
+
+        exp = new ArithmeticJavaExpressionRegexp(testInvalidString5);
+        assertFalse(exp.test());
+
+        exp = new ArithmeticJavaExpressionRegexp(testInvalidString6);
+        assertFalse(exp.test());
+
+        exp = new ArithmeticJavaExpressionRegexp(testInvalidString7);
+        assertFalse(exp.test());
+
+        exp = new ArithmeticJavaExpressionRegexp(testInvalidString8);
+        assertFalse(exp.test());
+    }
 }
