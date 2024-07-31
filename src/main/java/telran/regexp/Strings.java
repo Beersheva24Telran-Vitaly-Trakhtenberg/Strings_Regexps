@@ -63,31 +63,4 @@ public class Strings
         }
         return ".*\\b(" + regexBuilder.toString() + ")\\b.*";
     }
-
-    public static boolean isArithmeticExpression(String expr)
-    {
-        int stack_operations = 0;
-        int stack_brackets = 0;
-        String operand = "";
-        int pos_brackets = -1;
-        int pos_operations = -1;
-
-        for (int i = 0; i < expr.length(); i++) {
-            char c = expr.charAt(i);
-
-            if (c == '(') {
-                if (stack_brackets == 0) {
-                    pos_brackets = i;
-                }
-                stack_brackets++;
-            } else if (c == ')') {
-                stack_brackets--;
-                if (stack_brackets == 0 && pos_brackets != -1) {
-                    pos_brackets = -1;
-                }
-            }
-        }
-
-        return false;
-    }
 }

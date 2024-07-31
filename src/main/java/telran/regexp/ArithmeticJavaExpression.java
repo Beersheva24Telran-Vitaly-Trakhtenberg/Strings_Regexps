@@ -1,31 +1,19 @@
 package telran.regexp;
 
-import java.util.List;
-import java.util.ArrayList;
 import static telran.regexp.Strings.*;
 
 public class ArithmeticJavaExpression {
     private String sourceExpression;
-    List<String> groupsExpression = new ArrayList<>();
-    List<String> variables = new ArrayList<>();
     private int stack = 0;
 
     public ArithmeticJavaExpression(String expression)
     {
         this.sourceExpression = expression;
-
-        check_brackets();
-    }
-
-    public boolean isCorrectExpression()
-    {
-        return this.stack == 0;
     }
 
     public boolean test()
     {
         int pos_brackets = -1;
-        int pos_operands = -1;
         boolean prev_operand = false;
         String var = "";
         boolean res = true;
@@ -73,7 +61,6 @@ public class ArithmeticJavaExpression {
                 prev_operand = false;
             } else {
                 res =false;
-                //break;
             }
         }
         if (var.length() > 0) {
@@ -82,7 +69,6 @@ public class ArithmeticJavaExpression {
         if (res) {
             res = this.stack == 0;
         }
-        res = res?true:false;   // TODO
 
         return res;
     }
@@ -91,42 +77,5 @@ public class ArithmeticJavaExpression {
     {
         boolean res = var.matches("\\d+") || isJavaVariable(var);
         return res;
-    }
-
-    private void check_brackets()
-    {
-        int pos = -1;
-
-        for (int i = 0; i < sourceExpression.length(); i++) {
-            char c = sourceExpression.charAt(i);
-
-            if (c == '(') {
-                if (stack == 0) {
-                    pos = i;
-                }
-                stack++;
-            } else if (c == ')') {
-                stack--;
-                if (stack == 0 && pos != -1) {
-                    groupsExpression.add(sourceExpression.substring(pos + 1, i));
-                    pos = -1;
-                }
-            }
-        }
-    }
-
-    public List<String> getGroupsExpression()
-    {
-        return this.groupsExpression;
-    }
-
-    public List<String> getVariables()
-    {
-        return this.variables;
-    }
-
-    public int getStack()
-    {
-        return this.stack;
     }
 }
