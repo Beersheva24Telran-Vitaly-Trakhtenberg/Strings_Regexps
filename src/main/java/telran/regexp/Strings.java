@@ -61,6 +61,6 @@ public class Strings
                 regexBuilder.append("|");
             }
         }
-        return ".*\\b(" + regexBuilder.toString() + ")\\b.*";
+        return ".*\\b(" + regexBuilder + ")\\b.*";
     }
 }
